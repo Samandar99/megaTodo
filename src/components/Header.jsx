@@ -3,7 +3,7 @@ import arrow from "../assets/images/arrow.svg";
 import close from "../assets/images/close.svg";
 import { useState } from "react";
 
-function Header() {
+function Header({ setSearchText,searchText  }) {
   const [isSecondBlockOpen, setIsSecondBlockOpen] = useState(false);
   const [isFirstBlockOpen, setIsFirstBlockOpen] = useState(true);
 
@@ -35,7 +35,12 @@ function Header() {
           <div className="header__nav-block">
             <div className="header__nav-form">
               <img src={arrow} alt="" onClick={handleBack} />
-              <input type="text" placeholder="Поиск..." />
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
             </div>
             <img className="header__nav-close" src={close} alt="" />
           </div>

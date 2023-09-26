@@ -9,6 +9,16 @@ function App() {
   const [dataInfo, setDataInfo] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedNote, setEditedNote] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    const filteredNotes = dataInfo.filter((item) =>
+      item.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredData(filteredNotes);
+  }, [dataInfo, searchText]);
+
   useEffect(() => {
     const storedDataInfo = localStorage.getItem("dataInfo");
     if (storedDataInfo) {
@@ -49,10 +59,11 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header setSearchText={setSearchText} searchText={searchText} />
 
       <Main
-        dataInfo={dataInfo}
+        dataInfo={filteredData}
+        searchText={searchText}
         dataInfoDell={dataInfoDell}
         editDataInfo={editDataInfo}
       />
